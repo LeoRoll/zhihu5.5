@@ -1,0 +1,23 @@
+php-nginx:
+  image: "webdevops/php-nginx:ubuntu-16.04"
+  ports:
+    - "80:80"
+  links:
+    - "mysql"
+  volumes:
+    - ./:/app
+  environment:
+    WEB_DOCUMENT_ROOT: /app/public
+    TZ: "Asia/Shanghai"
+mysql:
+  image: "mysql:5.7.18"
+  expose:
+    - "3306"
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_DATABASE: app
+    MYSQL_ROOT_PASSWORD: php@docker
+    TZ: "Asia/Shanghai"
+  volumes:
+    - ./data/mysql:/var/lib/mysql
